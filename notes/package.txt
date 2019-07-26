@@ -1,0 +1,499 @@
+mac 查询本机IP    ifconfig|grep"inet"|grep-v127.0.0.1
+模拟器：网易mumu    adb connect 127.0.0.1:7556 (mac)
+
+
+首先：尝试使用模拟器测试，我用夜神模拟器 (或者真机测试)
+
+这里是因为需要确认目前在电脑上的模拟器是可以正常运行的，并且，开发React native的应用程序，肯定是需要做一些本地测试的
+
+
+第一：生成签名密钥
+
+这一步的操作主要是生成需要的签名密钥，供android调用，生成的文件待用
+
+在项目根目录运行以下命令，输入的密码是比较简单的123456，在Windows上keytool命令放在JDK的bin目录中（比如C:\Program Files\Java\jdkx.x.x_x\bin），你可能需要在命令行中先进入那个目录才能执行此命令。
+
+keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+
+
+第二：设置gradle
+
+把第一步生成的文件my-release-key.keystore文件放到你工程中的android/app文件夹下。然后，
+
+分两步：
+
+第1步：配置全局的gradle变量
+
+打开C:\Users\xxx\应该是可以看到一个文件夹.gradle，打开后，应该也有一个文件gradle.properties，如果不存在该文件，可以手动创建，并在该文件中输入以下类似内容，比如我的文件路径： C:\Users\Administrator\.gradle\gradle.properties，内容：
+
+MYAPP_RELEASE_STORE_FILE=my-release-key.keystore
+MYAPP_RELEASE_KEY_ALIAS=my-key-alias
+MYAPP_RELEASE_STORE_PASSWORD=123456
+MYAPP_RELEASE_KEY_PASSWORD=123456
+
+第2步:配置项目目录android下的gradle.properties文件，路径：项目目录\android\gradle.properties，内功同上(可选，还未测试不配置此项行不行，我是配置了才成功的)
+MYAPP_RELEASE_STORE_FILE=my-release-key.keystore
+MYAPP_RELEASE_KEY_ALIAS=my-key-alias
+MYAPP_RELEASE_STORE_PASSWORD=123456
+MYAPP_RELEASE_KEY_PASSWORD=123456
+
+
+第三步：给项目添加签名
+
+将刚才生成的签名文件my-release-key.keystore复制至react native项目中的android\app文件夹中
+
+并手动编辑android\app文件夹下的build.gradle文件，比如我的是这样，看到的要用的，只需要复制过去，修改路径，秘钥就行
+...
+android {
+...
+defaultConfig { ... }
+signingConfigs {
+release {
+storeFile file("D:/lx/demo9/android/app/my-release-key.keystore")
+storePassword "123456"
+keyAlias "my-key-alias"
+keyPassword "123456"
+}
+}
+buildTypes {
+release {
+...
+signingConfig signingConfigs.release
+}
+}
+}
+...
+
+最新版：0.60
+
+defaultConfig { ... }
+    signingConfigs {
+        release {
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
+    }
+    buildTypes {
+        release {
+            ...
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+
+
+第四步：生成发行APK包
+只需在终端中运行以下命令：
+
+$ cd android && ./gradlew assembleRelease
+译注：cd android表示进入android目录（如果你已经在android目录中了那就不用输入了）。./gradlew assembleRelease在macOS和Linux系统中表示执行当前目录下的名为gradlew的脚本文件，运行参数为assembleRelease，注意这个./不可省略；而在windows命令行下则需要去掉./。
+
+Gradle的assembleRelease参数会把所有用到的JavaScript代码都打包到一起，然后内置到APK包中。如果你想调整下这个行为（比如js代码以及静态资源打包的默认文件名或是目录结构等），可以看看android/app/build.gradle文件，然后琢磨下应该怎么修改以满足你的需求。
+
+生成的APK文件位于android/app/build/outputs/apk/app-release.apk，它已经可以用来发布了。
+
+
+
+注意：
+1. react native0.57 版本，windows上，项目要正常运行，必须在/android/app/src/main 下创建 assets目录，也就是
+/android/app/src/main/assets/文件夹必须存在，创建完之后再项目目录执行：react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res；
+不这样做的话别想正常运行，别说打包
+2.我自己打包过程中就遇到一个报错，并很快解决。如下：
+
+AILURE: Build failed with an exception.
+* What went wrong:
+Execution failed for task ':app:lintVitalRelease
+
+解决方案：
+大意是：debug版可以运行，release版生成不了。似乎是有没有用到的module,只需在android/app/build.gradle文件中的android部分添加代码：
+
+android {
+
+......
+lintOptions {
+checkReleaseBuilds false
+abortOnError false
+}
+
+}
+
+
+
+参考：1.react native0.57中文官网：https://reactnative.cn/docs/0.43/signed-apk-android/ 说的详细，但是不全，比如文件路径，参数说的不够详细
+2. 报错解决：https://blog.csdn.net/swallow_csdn/article/details/83012642
+3. 0.57 之前的打包方案，可参考，比如文中"D:\test\TestAndroidApk\android\app\src\main\assets看到两个文件，即index.bundle和index.bundle.meta两个文件，生成的这两个文件，会打包至APK中。"这句话是对于老版本说的，对于0.57版本来说，只生产一个文件，并不是2个。地址： https://www.cnblogs.com/weschen/p/8358952.html，
+
+报错：
+react-native报 Execution failed for task ':app:mergeDebugResources'错误
+https://blog.csdn.net/hunannanhu/article/details/77159322
+
+
+【react-native】react-native打包apk Error: Duplicate resources已解决
+
+https://blog.csdn.net/jabony/article/details/89841446
+
+安卓模拟器： http://www.pc6.com/mac/262893.html
+
+（爬坑）React-Native项目运行之路
+
+https://www.jianshu.com/p/4bbb520a48e9
+
+
+追随着时代的脚步（？），采取着“还有头发，还能学”的方针，我从GitHub下载了React-Native项目，准备开始学习......
+然后我就进入了报错天堂......
+我承认我的英文水平全靠看报错提升的....
+
+环境：macOS
+Xcode：Version 10.1
+Android Studio：Version 3.2
+
+以下是遇到的报错和它的解决方法....至于为什么会报错，为什么这样解决，别问我，我也不知道......等哪天我研究透了可能再来补充.......
+报错1：Cannot find entry file index.android.js in any of the roots
+
+    在react native以前的版本，index.android.js与index.ios.js是分开的两个文件，在最新版本中这两个文件合并成index.js一个文件了。但是如果你在创建项目之后直接运行，肯定会报Cannot find entry file index.android.js in any of the roots这种类似的错误，因为在根目录下已经不存在index.anroid.js和index.ios.js这两个文件，所以肯定不会检索到，你更改App.js的内容后更不可能生效。（https://www.cnblogs.com/honeynm/p/9007072.html）
+
+解决方法：
+
+    创建assets目录（android/app/src/main/assets）
+
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/res/
+
+    之后assets目录下就会生成
+
+
+
+
+    之后在运行react-native run-android
+
+    PS：有个很奇怪的点是，当我改动了文件，要在Android Studio上跑的时候，需要把assets文件夹里面的文件删除，重新进行一次上面第二个步骤，才能显示修改，请教有没有大佬知道是为什么？
+
+报错2：Android 报错 react native syntaxError:Attempted to redefine property "xxxx"
+
+项目内有某个属性“xxxx”被定义了多次，例如：
+
+
+
+
+解决方法：
+需要删除/注释一个，这在IOS运行时是可以的，但是Android会报错。
+报错3：Android Error:Execution failed for task ':app:lintVitalRelease'
+
+解决方法：
+在android/app/build.gradle里的android{}中添加
+
+lintOptions {
+    checkReleaseBuilds false
+    abortOnError false
+}
+
+报错/错误4：运行Android模拟器
+
+解决方法：
+用Android Studio查看项目时，我是跑在模拟器（夜神）上看效果，所以这时候需要连接模拟器，网上有各种连接模拟器的方法，基本都是Windows，不过方法差不多，只是Mac的地址是/你的主机名/Macintosh-HD/Applications/Nox\ App\ Player.app/Contents/MacOS，如果输入到终端没办法跳转的话，就需要一级一级往下找了。
+然后运行adb connect 127.0.0.1:62001。
+
+在Android Studio中，需要改成：
+
+
+
+
+连接上的时候会有设备提示，如果找不到设备，重启模拟器就好了。
+报错5：Android Error:moudle not specified
+
+在上一个问题中，配置里有个Module，一般显示的就是项目名，如果显示的是<no module>，并且你刚好又是第一次运行RN项目，什么也不懂，那么你需要查看一下，你用Android Studio打开的是不是RN项目目录.......
+如果是，改成打开RN项目目录下的android文件夹：）
+问题6：Android打包
+
+https://blog.csdn.net/u011272795/article/details/77161942
+基本根据这个文章配置就可以打包成功了，没有成功就要一个一个解决报错了。
+报错7：You have not accepted the license agreements of the following SDK components
+
+缺少对应的包。
+解决方法：
+看提示（例如Android SDK Platform 23）下载相应的包。
+
+
+
+
+
+
+
+
+勾选然后下载即可。
+
+
+报错8：A problem occurred configuring project ‘:app’
+
+解决方法：
+在android文件夹下创建local.properties，然后写入
+sdk.dir=你本地Android SDK文件夹路径
+
+
+
+
+如果不知道sdk路径，打开Android Studio的SDK Manager就能看到了。
+参考一下上一个问题的图。
+
+
+问题9：打包发布
+
+参考：https://blog.csdn.net/qq_38719039/article/details/80848290
+问题10：IOS '......libfishhook.a'
+
+error: Build input file cannot be found: '/Users/../node_modules/react-native/Libraries/WebSocket/libfishhook.a'
+
+解决方法：
+
+
+
+
+删除该标记下的libfishhook.a，然后重新添加一个就可以。
+
+
+报错11：_react2.default.createContext is not a function
+
+解决方法：
+升级react版本即可：
+
+//before:
+"react": "^16.2.0",
+"react-dom": "^16.2.0",
+ 
+//after update:
+"react": "^16.7.0",
+"react-dom": "^16.7.0",
+
+报错12：Application XXX has not been registered
+
+解决方法：
+1、注册方法写错
+
+AppRegistry.registerComponent('MyDemo', () => MyDemo);
+
+2、端口被占用
+输入react-native start，如果出现Packager can't listen on port 8081，就说明端口被占用，杀死进程即可。
+
+lsof -i :8081
+kill -9 <PID>
+
+报错13：RNGestureHandlerModule.State error
+
+解决方法：
+这是在使用react-native出现的报错，是因为没有连接造成的。
+
+react-native link react-native-gesture-handler
+
+报错14：Command PhaseScriptExecution failed with a nonzero exit code
+
+运行xcode模拟器显示的报错，是因为Xcode10是默认选中的最新的New Build System(Default)，在这个编译系统的环境下，打包的CI脚本一直会报错。
+解决方法：
+File>Project Setting...
+
+
+
+
+小礼物走一走，来简书关注我
+
+
+作者：SA_Arthur
+链接：https://www.jianshu.com/p/4bbb520a48e9
+来源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+
+
+
+
+
+
+ReactNative Android9.0以上打包apk后http请求不到解决方法
+
+
+https://blog.csdn.net/u014234968/article/details/90758015
+
+添加 android:usesCleartextTraffic="true"
+
+
+ 
+
+
+
+
+
+
+
+RN 踩坑记录
+https://www.jianshu.com/p/cc872b0ad7a0
+
+1）android打包apk根据官网操作出现的错误
+
+    Could not list contents of '/Users/xxxx/Downloads/xxxx/node_modules/node-pre-gyp/node_modules/.bin/needle'. Couldn't follow symbolic link.
+    解决方法：
+
+    根据提示路径一步步的查找最终在node-pre-gyp发现几个爆红的文件，这是找不到文件，只要把这几个找不到的文件删掉就可以了(nopt、needle、detct-libc、rc)
+
+2）使用StatusBar后界面显示不出来
+
+    解决方法：
+
+    给view添加flex:1样式
+
+3）Android使用Animated.View时动画视图显示不出来
+
+    解决方法：
+
+    给Animated.View进行绝对布局设置
+
+4) 警告 Warning:setState(...):Can only update a mounted or mounting component...
+
+    原因：在给属性赋值（setState）时没有进行判断，可能出现赋个空值（null）的情况。
+    解决方法：
+
+    赋值前进行空值判断
+
+5）iOS网络图片无法显示问题
+
+    原因：在iOS9之后，网络请求默认为Https请求，如需支持Http，修改info.plist文件添加键值对设置允许http访问。
+    解决方法：
+
+    在App Transport Security Settings中添加Allow Arbitrary Loads
+    设置为YES即可。
+
+6) TextInput无法获取焦点
+
+    0.55 版本TextInput iOS无法输入中文， 0.57版本已修复
+
+    原因：没有给TextInput设置高度(height)，当multiline={true}时不受影响
+
+    解决方法：
+
+    给TextInput设置高度(height)即可
+
+7) TextInput多行输入文字居中显示问题(需求顶部对其)
+
+    解决方法：
+
+    设置textAlignVertical:'top'（文本垂直方向布局）属性即可实现下面效果
+
+8) 报错 undefined is not an object (evaluating 'n.View.propTypes.style')
+
+    原因：If this issue is happening with RN 0.49, check for View.propTypes which no longer exists. Use ViewPropTypes instead.
+
+    解决方法：
+
+    使用ViewPropTypes代替View.propTypes
+
+import PropTypes from 'prop-types';
+import ViewPropTypes from 'ViewPropTypes';
+
+static propTypes = {
+  style: Text.propTypes.style,
+  imgStyle: ViewPropTypes.style,
+  titleStyle: PropTypes.any,
+  title: PropTypes.string,
+  source: PropTypes.any,'
+}
+
+9) 在集成react-navigation和redux时 出现TypeError: undefined is not a function (near '...addListener...')错误.
+
+    解决方法：
+
+    集成该库: react-navigation-redux-helpers
+
+10) 在集成react-navigation和redux时 出现 安卓不显示tabBar图标情况.
+
+    解决方法：
+
+    在tabBarOptions中添加showIcon: true如:
+
+11) Android报错:Error:found unexpected optical bounds (red pixel) on top border at x=106.
+
+    解决方法:
+
+    在gradle.properties文件下添加 android.enableAapt2 = false
+
+12) android打包错误:uncompiled PNG file passed as argument. Must be compiled first into .flat file..
+
+    解决方法：
+
+    添加 org.gradle.configureondemand=true 到 android/gradle.properties 中
+
+13) android 运行 报错：transformDexWithInstantRunDependenciesApkForDebug
+
+这个问题是setting里面的设置问题：
+
+    解决方法
+
+    File---->Settings--->Build,Execution,Deployment---->Instant Run ---->去掉第一个条目的对钩就ok啦
+
+小礼物走一走，来
+
+
+
+
+【react-native0.60】react-native打包apk Error: Duplicate resources已解决
+
+https://blog.csdn.net/jabony/article/details/89841446
+
+
+RN开发跨平台项目已经不再陌生，最近使用jenkins持续集成是通过
+
+./gradlew clean
+
+./gradlew assembleRelease
+
+打包APK 遇到两个错误
+
+⑴Gradle Permission denied
+
+解决办法就是授权 chmod +x gradlew 或者 sudo chmod +x gradlew
+
+⑵react-native打包apk  Error: Duplicate resources
+
+解决办法为 找到你的RN项目，目录node_modules/react-native/下的react.gradle文件，doFirst块下添加doLast代码块，如下编辑
+
+不想截图，因为让遇到这个问题手敲真的很累而且容易出错
+
+     
+     
+    doLast {
+        def moveFunc = { resSuffix ->
+            File originalDir = file("$buildDir/generated/res/react/release/drawable-${resSuffix}");
+            if (originalDir.exists()) {
+                File destDir = file("$buildDir/../src/main/res/drawable-${resSuffix}");
+                ant.move(file: originalDir, tofile: destDir);
+            }
+        }
+        moveFunc.curry("ldpi").call()
+        moveFunc.curry("mdpi").call()
+        moveFunc.curry("hdpi").call()
+        moveFunc.curry("xhdpi").call()
+        moveFunc.curry("xxhdpi").call()
+        moveFunc.curry("xxxhdpi").call()
+    }
+
+å¨è¿éæå¥å¾çæè¿°
+
+注意：如果还出现以上问题就把项目res中的生成重复的图片资源删除，再打包
+
+编辑保存后再重新执行清理项目，编译打包即可。
+
+参考文档：
+
+https://reactnative.cn/docs/0.43/signed-apk-android.html
+
+
+
+
+
+
+xxxxxx
+
+
+
+
+
+

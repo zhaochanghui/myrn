@@ -1,0 +1,329 @@
+ Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
+…or create a new repository on the command line
+
+echo "# myrn" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/zhaochanghui/myrn.git
+git push -u origin master
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/zhaochanghui/myrn.git
+git push -u origin master
+
+…or import code from another repository
+
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+
+一 .关于react-navigation 3.x的使用   https://www.jianshu.com/p/8f97574307cc
+
+1、安装
+以前当我们在使用react-navigation的时候，我们只需要使用下面一条命令安装一下react-navigation就可以使用了。
+yarn add react-navigation
+# 或者使用 npm
+# npm install --save react-navigation
+
+但是3.x以后的不仅仅只有这一条命令了，因为在新版本中，新增了一个原生库react-native-gesture-handler，所以，不管是升级还是新安装，都需要安装这个库
+yarn add react-native-gesture-handler
+# 或者使用 npm
+# npm install --save react-native-gesture-handler
+
+然后链接所有本地依赖项:
+react-native link
+
+2、使用
+在安装3.x后，需要将最外层的包裹形式修改为createAppContainer
+在之前的版本中，使用createStackNavigator后，就会自动实现createAppContainer，但在新版本中，需要手动使用createAppContainer来包裹最外层的路由。
+
+
+
+
+react-navigation 3.x版本的使用    https://www.cnblogs.com/nangezi/p/10625611.html
+
+2.0以前版本：
+
+    StackNavigator - 一次只渲染一个页面，并提供页面之间跳转的方法。 当打开一个新的页面时，它被放置在堆栈的顶部
+    TabNavigator - 渲染一个Tab选项卡，让用户可以在几个Tab页面之间切换
+    DrawerNavigator - 提供一个从屏幕左侧滑入的抽屉，类似bilibili和QQ的隐藏在左侧的内容栏功能
+
+新版本：
+
+　　StackNavigator  --> createStackNavigator
+
+　　TabNavigator  --> createBottomTabNavigator 也可以使用
+
+　　createStackNavigator  返回的结果需要再用createAppContainer包裹　 const MainNavigator = createAppContainer(stackNavigator );
+
+const TabBar = createBottomTabNavigator(
+  {
+    // 1:
+    one: {
+      screen: FirstPage,
+      navigationOptions: () => ({
+          tabBarIcon: ({ tintColor, focused  }) => (
+            <MaterialCommunityIcons name="star-face" size={35} color={tintColor} />
+          )
+      })
+    },
+    //2:
+     two: {
+      screen: TwoPage,
+      navigationOptions: () => ({
+          tabBarIcon: ({ tintColor, focused  }) => (
+            <MaterialCommunityIcons name="star-circle-outline" size={35} color={tintColor} />
+          )
+      })
+    },
+    //+:
+    plus: {
+      screen: PlusPage,
+      navigationOptions: () => ({
+          tabBarIcon: ({ tintColor, focused  }) => (
+              focused ? <Ionicons name='md-add' size={45}  color={focused ? '#fb7299' : '#999'}/>
+              :
+              <Ionicons name='md-add' size={45}  color={focused ? '#fb7299' : '#999'}/>
+          )
+      })
+    },
+    // 3:
+    three: {
+      screen: ThreePage,
+      navigationOptions: () => ({
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Ionicons name="ios-color-filter" size={35} color={tintColor} />
+          )
+      })
+    },
+    //4:
+    four: {
+      screen: FourPage,
+      navigationOptions: () => ({
+          tabBarIcon: ({ tintColor, focused  }) => (
+            <MaterialCommunityIcons onPress={() => {alert(tintColor)}} name="account-outline" size={35} color={tintColor} />
+          )
+      })
+    }
+  },
+  {
+    initialRouteName: 'one', // 初始化页面
+    //tabBarComponent: CustomTabBar,
+    tabBarOptions: {
+      activeTintColor: '#fb7299',
+      inactiveTintColor: '#999'
+    }
+}
+
+const StackNavigator = createStackNavigator(
+  {
+    MainTab: {  //路由
+      screen: TabBar,
+      navigationOptions: {
+          header: null,
+      }
+    }
+  },
+  {
+    initialRouteName: "MainTab"
+  }
+);
+
+const MainNavigator = createAppContainer(StackNavigator);
+
+export default class MainComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    render() {
+        return (
+            <View style={{flex: 1}}>
+                <MainNavigator  />
+            </View>
+        );
+    }
+}
+
+
+第二： React Native 第三方库之 react-native-elements   https://www.jianshu.com/p/3322a0999614
+
+官方文档
+安装
+
+//第一步
+$ npm install --save react-native-elements
+//第二步
+$ npm install react-native-vector-icons --save
+//第三步
+$ react-native link
+
+组件
+Avatar
+    用法
+import { Avatar } from 'react-native-elements';
+
+<Avatar
+  size="large"
+  rounded
+  source = {require('./img/a.jpg')}
+  onPress={() => { }}
+  activeOpacity={0.7}/>
+
+
+Badge
+
+    用法
+
+import { Badge } from 'react-native-elements';
+
+<View style={styles.container}>
+   <Badge status='success' value="1" />
+   <Badge status='error' value="2" />
+   <Badge status='primary' value="3" />
+   <Badge status='warning' value="4" />
+</View>
+
+ButtonGroup
+
+    用法
+
+import { ButtonGroup } from 'react-native-elements';
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedIndex:1
+    }
+    this.updateIndex = this.updateIndex.bind(this);
+  }
+  updateIndex(selectedIndex) {
+    this.setState({ selectedIndex })
+  }
+  render() {
+    const buttons = ['iOS', 'Android', 'Java']
+    const { selectedIndex } = this.state
+    return (
+      <View >
+        <ButtonGroup
+          onPress={this.updateIndex}
+          selectedIndex={selectedIndex}
+          buttons={buttons}
+          containerStyle={{ height: 48 }}
+        />
+      </View>
+
+    );
+  }
+}
+
+Card
+
+1.用法
+
+import {
+  Card,
+  Button
+} from 'react-native-elements';
+export default class App extends Component {
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Card
+          title='HELLO WORLD'
+          image={require('./img/a.jpg')}>
+          <Text style={{ marginBottom: 10 }}>
+            The idea with React Native Elements is more about component structure than actual design.
+          </Text>
+          <Button
+            icon={<Icon name='code' color='#ffffff' />}
+            backgroundColor='#03A9F4'
+            buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
+            title='VIEW NOW' />
+        </Card>
+      </View>
+
+    );
+  }
+}
+
+CheckBox
+
+1.用法
+
+import { CheckBox } from 'react-native-elements';
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked:false
+    }
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <CheckBox
+          center
+          title='Click Here'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+          onPress={() => this.setState({checked: !this.state.checked})}
+        />
+      </View>
+
+    );
+  }
+}
+
+Divider
+
+1.用法
+
+import { Divider } from 'react-native-elements';
+
+export default class App extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Divider style={styles.divider}/>
+      </View>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    flexDirection: 'column',
+  },
+  divider: {
+    marginTop:20,
+    height:1,
+    backgroundColor:'blue'
+  }
+});
+
+
+Header
+
+    用法
+
+import { Header } from 'react-native-elements';
+
+<View >
+  <Header
+    leftComponent={{ icon: 'menu', color: '#fff' }}
+    centerComponent={{ text: '首页', style: { color: '#fff' } }}
+    rightComponent={{ icon: 'home', color: '#fff' }}/>
+</View>
+
+
+
+
+
