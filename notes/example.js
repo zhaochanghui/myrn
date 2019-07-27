@@ -1,32 +1,12 @@
 import React from 'react';
-import { Alert, View,Image, ScrollView} from 'react-native';
-import { SearchBar,List } from '@ant-design/react-native';
-
-
+import { Image, ScrollView, View } from 'react-native';
+import { List } from '@ant-design/react-native';
 const Item = List.Item;
 const Brief = Item.Brief;
-
-
-export default class SearchBarDemo extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.state = {
-      value: 'bsv',
-    };
-    this.onChange = value => {
-      this.setState({ value });
-    };
-    this.clear = () => {
-      this.setState({ value: '' });
-    };
-  }
-
+export default class BasicListExample extends React.Component {
   render() {
     return (
-        
-
-
-         <ScrollView
+      <ScrollView
         style={{ flex: 1, backgroundColor: '#f5f5f9' }}
         automaticallyAdjustContentInsets={false}
         showsHorizontalScrollIndicator={false}
@@ -115,7 +95,51 @@ export default class SearchBarDemo extends React.Component {
           </Item>
         </List>
       </ScrollView>
-     
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+搜索：
+
+import React from 'react';
+import { Alert, View } from 'react-native';
+import { SearchBar } from '@ant-design/react-native';
+export default class SearchBarDemo extends React.Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      value: '美食',
+    };
+    this.onChange = value => {
+      this.setState({ value });
+    };
+    this.clear = () => {
+      this.setState({ value: '' });
+    };
+  }
+  render() {
+    return (
+      <View style={{ marginTop: 30 }}>
+        <SearchBar defaultValue="初始值" placeholder="搜索" />
+        <SearchBar
+          value={this.state.value}
+          placeholder="搜索"
+          onSubmit={value => Alert.alert(value)}
+          onCancel={this.clear}
+          onChange={this.onChange}
+          showCancelButton
+        />
+      </View>
+    );
+  }
+}
+

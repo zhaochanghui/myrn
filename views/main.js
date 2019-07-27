@@ -23,7 +23,7 @@ import MusicDetail from './pages/music/music_detail';
 
 class One extends Component{
     static navigationOptions={
-        title:'首页',
+        title:'price',
         tabBarIcon: ({}) => (
             <Image
                 source={{uri:'https://avatar.csdnimg.cn/4/3/D/1_weixin_44462536.jpg'}}

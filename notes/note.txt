@@ -334,7 +334,6 @@ https://rn.mobile.ant.design/docs/react/introduce-cn
 react-native-vector-icons的安装和使用
 https://www.cnblogs.com/slongs/p/10064261.html
 npm install --save react-native-vector-icons
-
 react-native link react-native-vector-icons
 
 
