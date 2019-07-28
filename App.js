@@ -30,7 +30,8 @@ const App = () => {
     return (<Main />);
 }
 
-const App11 = () => {
+
+const App1 = () => {
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />

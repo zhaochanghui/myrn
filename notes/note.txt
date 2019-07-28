@@ -346,3 +346,78 @@ tabs标签页  顶部导航用
   marginBottom
   borderBottomColor: '#bbb'   底部边框颜色
   borderBottomWidth: 1        底部边框宽度
+
+
+
+
+
+2019-7-27
+react-native-elements 用户
+https://www.jianshu.com/p/3322a0999614
+
+
+2019-7-28
+RN- Flatlist 下拉刷新数据
+
+<FlatList
+    data={this.state.data}
+    refreshing = {this.state.refreshing} //等待加载出现加载的符号是否显示, 是否刷新 ，自带刷新控件
+    onRefresh={this.refresh} // 刷新方法,写了此方法，下拉才会出现  刷新控件，使用此方法必须写 refreshing
+    renderItem={this.renderData}
+    keyExtractor={this._keyExtractor}
+/>
+
+构造函数：
+constructor(props) {
+  super(props);
+  this.state = {
+    selectedIndex:1,
+    data:[],
+    load:false,
+    refreshing:true,
+    currentPage:1
+  }
+  this.updateIndex = this.updateIndex.bind(this);
+  this.fetchData = this.fetchData.bind(this)
+  this.refresh = this.refresh.bind(this)
+}
+
+fetchData(){
+  fetch('地址')
+      .then((response) => response.json())
+      .then((responseData) => {
+        // 注意，这里使用了this关键字，为了保证this在调用时仍然指向当前组件，我们需要对其进行“绑定”操作
+        console.log(responseData);
+        this.setState({
+          data: this.state.data.concat(responseData),
+          load: true,
+          refreshing:false,
+        });
+      });
+}
+
+
+componentDidMount(): void {
+  this.fetchData();
+}
+
+  //下拉刷新,更改状态，重新获取数据
+  refresh(){
+    // alert('下拉')
+      this.setState({
+        selectedIndex:1,
+        data:[],
+        load:false,
+        refreshing:true,
+        currentPage:1
+      },()=>{
+          this.fetchData();
+      });
+
+  }
+
+
+
+
+logo 下载：
+http://www.lanrentuku.com/sort/logo/

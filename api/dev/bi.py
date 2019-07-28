@@ -6,22 +6,17 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-host = 'localhost'
-user = "root"
-pwd = '123456'
-dbname = 'test'
-table = 'bsj'
+host = ''
+user = ""
+pwd = ','
+dbname = ''
+table = ''
+port=
 
 
 def add(dic):
     # 打开数据库连接
-    db = pymysql.connect(host='127.0.0.1',
-                         port=3306,
-                         user='root',
-                         passwd='123456',
-                         db='test',
-                         use_unicode=True,
-                         charset='utf8')
+    db =  pymysql.connect(host=host,port=port,user=user,passwd=pwd,db=dbname,use_unicode=True,charset='utf8')
 
     # 使用 cursor() 方法创建一个游标对象 cursor
     cursor = db.cursor()
@@ -38,13 +33,7 @@ def add(dic):
 
 
 def findByName(name):
-    db = pymysql.connect(host='127.0.0.1',
-                         port=3306,
-                         user='root',
-                         passwd='123456',
-                         db='test',
-                         use_unicode=True,
-                         charset='utf8')
+    db =  pymysql.connect(host=host,port=port,user=user,passwd=pwd,db=dbname,use_unicode=True,charset='utf8')
 
     cursor = db.cursor()
 
@@ -64,6 +53,29 @@ def findByName(name):
     db.close()
     return has
 
+
+def update(sql):
+    # 打开数据库连接
+    db =  pymysql.connect(host=host,port=port,user=user,passwd=pwd,db=dbname,use_unicode=True,charset='utf8')
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 更新语句
+    # sql = "UPDATE EMPLOYEE SET AGE = AGE + 1 WHERE SEX = '%c'" % ('M')
+    sql = sql
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+        print(sql+'：成功')
+    except:
+        # 发生错误时回滚
+        db.rollback()
+        print(sql+'：失败')
+    # 关闭数据库连接
+    db.close()
 
 
 browser = webdriver.PhantomJS()
@@ -99,4 +111,6 @@ for i in table_rows:
 
     if has == 0:
         add(addData)
-
+    else:
+        updatesql = "UPDATE bsj SET  price='"+addData['price']+"',updown='"+addData['updown']+"',dayex='"+addData['dayex']+"' WHERE name='"+(addData['name'])+"'"
+        update(updatesql)

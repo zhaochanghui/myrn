@@ -23,10 +23,10 @@ import MusicDetail from './pages/music/music_detail';
 
 class One extends Component{
     static navigationOptions={
-        title:'price',
+        title:'行情',
         tabBarIcon: ({}) => (
             <Image
-                source={{uri:'https://avatar.csdnimg.cn/4/3/D/1_weixin_44462536.jpg'}}
+                source={{uri:'https://s1.bqiapp.com/news/20190724/fe7be25908b439c96a617fff71256068.png'}}
                 style={[{height: 24, width: 24}, {}]}
             />
         ),
@@ -40,7 +40,7 @@ class One extends Component{
 
 class Book extends Component{
     static navigationOptions={
-        title:'图书',
+        title:'资讯',
         tabBarIcon: ({}) => (
             <Image
                 source={{uri:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3249694114,25894522&fm=26&gp=0.jpg'}}
@@ -58,7 +58,7 @@ class Book extends Component{
 
 class Movie extends Component{
     static navigationOptions={
-        title:'电影',
+        title:'平台',
         tabBarIcon:({})=>(
             <Image source={{uri:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2823951946,1544725307&fm=26&gp=0.jpg'}}
                    style={[{height:24,width:25},{}]}
@@ -77,7 +77,7 @@ class Movie extends Component{
 
 class Music extends Component{
     static navigationOptions={
-        title:'音乐',
+        title:'钱包',
         tabBarIcon:({})=>(
             <Image
                 source={{uri:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2138215559,1851475130&fm=26&gp=0.jpg'}}
@@ -182,5 +182,3 @@ export default class Main extends Component {
         );
     }
 }
-
-

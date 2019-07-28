@@ -38,7 +38,7 @@ foreach ($data as $key => &$value) {
 	$value['name'] = characet($value['name']);
 
 	//$value['name'] = explode('-',$value['name']);
-	$value['name'] = "rank:".($key+1)."  ".$value['name'];
+//	$value['name'] = "rank:".($key+1)."  ".$value['name'];
 
 //	$value['price'] = characet($value['price']);
 	$value['updown'] = characet($value['updown']);
@@ -48,6 +48,7 @@ foreach ($data as $key => &$value) {
 	$img = $value['img'];
 	$imgs = explode("?",$img);
 	$value['avatar_url'] = $imgs[0];
+	$value['rank'] = $key+1;
 }
 
 
