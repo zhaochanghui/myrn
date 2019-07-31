@@ -421,3 +421,6 @@ componentDidMount(): void {
 
 logo 下载：
 http://www.lanrentuku.com/sort/logo/
+
+
+2019-7-30  尝试   nativebase  https://docs.nativebase.io/docs/GetStarted.html

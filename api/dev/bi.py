@@ -114,3 +114,11 @@ for i in table_rows:
     else:
         updatesql = "UPDATE bsj SET  price='"+addData['price']+"',updown='"+addData['updown']+"',dayex='"+addData['dayex']+"' WHERE name='"+(addData['name'])+"'"
         update(updatesql)
+
+
+
+
+
+
+#2019-7-30   m.feixiaohao.com   https://mdncapi.bqiapp.com/api/coin/web-coinrank?webp=0&pagesize=100&page=1&type=-1&client_id=fxh_web&timestamp=2019-07-31+07:58:23&nonce=1564559903&sign=f98b28202ccee360bc3a4b9ee672410d
+#
