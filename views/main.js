@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {createStackNavigator,createAppContainer,createBottomTabNavigator} from 'react-navigation';
 
-import First from './pages/first';
+import MarketList from './pages/market/list';
 
 import BookList from './pages/book/book_list';
 import BookDetail from './pages/book/book_detail';
@@ -33,7 +33,7 @@ class One extends Component{
     };
     render() {
         return (
-            <First navigate={this.props.navigation.navigate} />
+            <MarketList navigate={this.props.navigation.navigate} />
         );
     };
 }

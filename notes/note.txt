@@ -424,3 +424,41 @@ http://www.lanrentuku.com/sort/logo/
 
 
 2019-7-30  尝试   nativebase  https://docs.nativebase.io/docs/GetStarted.html
+
+2019-08-04： 布局，列表项等
+ <Badge>
+                        <Text>1</Text>
+                    </Badge>
+                    <Badge primary>
+                        <Text>2</Text>
+                    </Badge>
+                    <Badge success>
+                        <Text>3</Text>
+                    </Badge>
+                    <Badge info>
+                        <Text>4</Text>
+                    </Badge>
+                    <Badge warning>
+                        <Text>5</Text>
+                    </Badge>
+                    <Badge style={{backgroundColor: 'black'}}>
+                        <Text style={{color: 'white'}}>6</Text>
+                    </Badge>
+
+                    <Button success><Text> 上涨 </Text></Button>
+                    <Button danger><Text> 下跌 </Text></Button>
+                    <Button dark><Text> 0.0% </Text></Button>
+
+                    <Grid>
+                        <Col style={{backgroundColor: 'red', width: windowWidth * 0.11, height: 60}}></Col>
+                        <Col style={{backgroundColor: 'blue', width: windowWidth * 0.19, height: 60}}></Col>
+                        <Col style={{backgroundColor: 'yellow', width: windowWidth * 0.45, height: 60}}></Col>
+                        <Col style={{backgroundColor: '#00CE9F', width: windowWidth * 0.25, height: 60}}></Col>
+                    </Grid>
+
+                    <Grid>
+                        <Col style={{backgroundColor: 'red', width: windowWidth * 0.11, height: 60}}></Col>
+                        <Col style={{backgroundColor: 'blue', width: windowWidth * 0.19, height: 60}}></Col>
+                        <Col style={{backgroundColor: 'yellow', width: windowWidth * 0.45, height: 60}}></Col>
+                        <Col style={{backgroundColor: '#00CE9F', width: windowWidth * 0.25, height: 60}}></Col>
+                    </Grid>

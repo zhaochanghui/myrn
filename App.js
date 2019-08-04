@@ -26,10 +26,9 @@ import {
 
 import Main from './views/main';
 
-const App = () => {
-    return (<Main />);
-}
-
+const App =() => {
+    return(<Main />);
+};
 
 const App1 = () => {
   return (

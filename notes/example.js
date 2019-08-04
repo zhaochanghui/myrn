@@ -108,7 +108,7 @@ export default class BasicListExample extends React.Component {
 
 
 
-搜索：
+//搜索：
 
 import React from 'react';
 import { Alert, View } from 'react-native';
@@ -147,7 +147,7 @@ export default class SearchBarDemo extends React.Component {
 
 
 
-2019-7-30: 备份
+//2019-7-30: 备份
 
 import React,{Component} from 'react';
 import {View,Text,Button,StyleSheet,Image,FlatList,TouchableOpacity,ScrollView,Dimensions } from 'react-native';
@@ -279,8 +279,8 @@ export default class App extends Component {
 }
 
 
------------->nativebase  
-list avatar  
+//------------>nativebase
+//list avatar
 
 import React, { Component } from 'react';
 import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
