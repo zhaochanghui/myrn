@@ -462,3 +462,23 @@ http://www.lanrentuku.com/sort/logo/
                         <Col style={{backgroundColor: 'yellow', width: windowWidth * 0.45, height: 60}}></Col>
                         <Col style={{backgroundColor: '#00CE9F', width: windowWidth * 0.25, height: 60}}></Col>
                     </Grid>
+
+
+
+
+
+
+关于nativebase中的Content  和flatlist刷新加载问题
+https://github.com/GeekyAnts/NativeBase/issues/1667
+
+I also ran into this. Resolved it on my side by making the
+
+import { StyleSheet, RefreshControl } from 'react-native';
+
+...
+render(
+  <Content refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />}>
+       <List .../>
+      </Content>
+...
+)

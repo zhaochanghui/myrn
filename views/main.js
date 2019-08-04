@@ -1,15 +1,6 @@
 import React,{Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar, Image
-} from 'react-native';
+import {SafeAreaView,StyleSheet,  ScrollView,  View,  Text,  StatusBar, Image} from 'react-native';
 import {createStackNavigator,createAppContainer,createBottomTabNavigator} from 'react-navigation';
-
-import MarketList from './pages/market/list';
 
 import BookList from './pages/book/book_list';
 import BookDetail from './pages/book/book_detail';
@@ -20,13 +11,15 @@ import MovieDetail from './pages/movie/movie_detail';
 import MusicList from './pages/music/music_list';
 import MusicDetail from './pages/music/music_detail';
 
+import MarketList from './pages/market/list';
+import BiDetail from './pages/market/detail';
 
 class One extends Component{
     static navigationOptions={
         title:'行情',
         tabBarIcon: ({}) => (
             <Image
-                source={{uri:'https://s1.bqiapp.com/news/20190724/fe7be25908b439c96a617fff71256068.png'}}
+              source={require('./images/hq.jpg')}
                 style={[{height: 24, width: 24}, {}]}
             />
         ),
@@ -43,7 +36,7 @@ class Book extends Component{
         title:'资讯',
         tabBarIcon: ({}) => (
             <Image
-                source={{uri:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3249694114,25894522&fm=26&gp=0.jpg'}}
+                source={require('./images/xw.png')}
                 style={[{height: 24, width: 24}, {}]}
             />
         ),
@@ -55,12 +48,12 @@ class Book extends Component{
     };
 }
 
-
 class Movie extends Component{
     static navigationOptions={
         title:'平台',
         tabBarIcon:({})=>(
-            <Image source={{uri:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2823951946,1544725307&fm=26&gp=0.jpg'}}
+            <Image
+            source={require('./images/plat.png')}
                    style={[{height:24,width:25},{}]}
             />
         ),
@@ -77,10 +70,10 @@ class Movie extends Component{
 
 class Music extends Component{
     static navigationOptions={
-        title:'钱包',
+        title:'区块链',
         tabBarIcon:({})=>(
             <Image
-                source={{uri:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2138215559,1851475130&fm=26&gp=0.jpg'}}
+              source={require('./images/qkl.png')}
                 style={[{width:25,height:24},{}]}
             />
         ),
@@ -154,6 +147,9 @@ const StackNavigator = createStackNavigator(
     },
     musicDetail:{
         screen:MusicDetail
+    },
+    biDetail:{
+      screen: BiDetail
     }
 
   },

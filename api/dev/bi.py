@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions
 
 host = ''
 user = ""
-pwd = ','
+pwd = ''
 dbname = ''
 table = ''
 port=
