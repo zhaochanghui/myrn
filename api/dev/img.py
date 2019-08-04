@@ -6,12 +6,25 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-host = '127.0.0.1'
-user = "root"
-pwd = '123456'
-dbname = 'test'
-table = 'bsj'
-port=3306
+
+dbstr = ''
+try:
+    f = open('d:\\db.txt', 'r')
+    dbstr = f.read()
+finally:
+    if f:
+        f.close()
+
+
+dbdict = eval(dbstr)
+print(dbdict)
+
+host = dbdict['host']
+user = dbdict['user']
+pwd = dbdict['pwd']
+dbname = dbdict['dbname']
+table = dbdict['table']
+port= dbdict['port']
 
 
 def add(dic):
@@ -138,7 +151,7 @@ fo.close()
 
 for i,val in enumerate(fields):
     print("序号："+str(i)+"  text:"+texts[i]+"   href:"+hrefs[i])
-    
+
     sql = "UPDATE bsj SET  img='"+val+"',uri='"+hrefs[i]+"' WHERE name='"+(texts[i])+"'"
     print(sql);
     update(sql)

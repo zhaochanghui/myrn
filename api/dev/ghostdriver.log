@@ -1,28 +1,19 @@
-[INFO  - 2019-08-04T07:19:09.272Z] GhostDriver - Main - running on port 60893
-[INFO  - 2019-08-04T07:19:13.574Z] Session [29449a00-b688-11e9-bab4-558813ae875a] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2019-08-04T07:19:13.574Z] Session [29449a00-b688-11e9-bab4-558813ae875a] - page.customHeaders:  - {}
-[INFO  - 2019-08-04T07:19:13.574Z] Session [29449a00-b688-11e9-bab4-558813ae875a] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
-[INFO  - 2019-08-04T07:19:13.574Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 29449a00-b688-11e9-bab4-558813ae875a
-[ERROR - 2019-08-04T07:19:14.504Z] Session [29449a00-b688-11e9-bab4-558813ae875a] - page.onError - msg: ReferenceError: Can't find variable: util
+[INFO  - 2019-08-04T10:00:10.676Z] GhostDriver - Main - running on port 53173
+[INFO  - 2019-08-04T10:00:13.197Z] Session [a6d9f260-b69e-11e9-bb37-2bf14a77e597] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2019-08-04T10:00:13.197Z] Session [a6d9f260-b69e-11e9-bb37-2bf14a77e597] - page.customHeaders:  - {}
+[INFO  - 2019-08-04T10:00:13.198Z] Session [a6d9f260-b69e-11e9-bb37-2bf14a77e597] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2019-08-04T10:00:13.198Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: a6d9f260-b69e-11e9-bb37-2bf14a77e597
+[ERROR - 2019-08-04T10:00:13.949Z] Session [a6d9f260-b69e-11e9-bb37-2bf14a77e597] - page.onError - msg: ReferenceError: Can't find variable: util
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2019-08-04T07:19:14.504Z] Session [29449a00-b688-11e9-bab4-558813ae875a] - page.onError - stack:
+[ERROR - 2019-08-04T10:00:13.950Z] Session [a6d9f260-b69e-11e9-bb37-2bf14a77e597] - page.onError - stack:
   global code (https://www.bishijie.com/coins/:331)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2019-08-04T07:19:14.506Z] Session [29449a00-b688-11e9-bab4-558813ae875a] - page.onError - msg: ReferenceError: Can't find variable: util
+[ERROR - 2019-08-04T10:00:13.951Z] Session [a6d9f260-b69e-11e9-bb37-2bf14a77e597] - page.onError - msg: ReferenceError: Can't find variable: util
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2019-08-04T07:19:14.506Z] Session [29449a00-b688-11e9-bab4-558813ae875a] - page.onError - stack:
+[ERROR - 2019-08-04T10:00:13.951Z] Session [a6d9f260-b69e-11e9-bb37-2bf14a77e597] - page.onError - stack:
   global code (https://www.bishijie.com/coins/:561)
 
   phantomjs://platform/console++.js:263 in error
-[INFO  - 2019-08-04T07:24:09.278Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T07:29:09.290Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T07:34:09.293Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T07:39:09.308Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T07:44:09.308Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T07:49:09.308Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T07:54:09.311Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T07:59:09.311Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2019-08-04T08:04:09.311Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW

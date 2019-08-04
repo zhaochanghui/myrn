@@ -6,12 +6,25 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-host = ''
-user = ""
-pwd = ''
-dbname = ''
-table = ''
-port=
+dbstr = ''
+try:
+    f = open('d:\\db.txt', 'r')
+    dbstr = f.read()
+finally:
+    if f:
+        f.close()
+
+
+dbdict = eval(dbstr)
+print(dbdict)
+
+host = dbdict['host']
+user = dbdict['user']
+pwd = dbdict['pwd']
+dbname = dbdict['dbname']
+table = dbdict['table']
+port= dbdict['port']
+
 
 
 def add(dic):
