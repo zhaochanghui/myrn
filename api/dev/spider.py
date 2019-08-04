@@ -1,3 +1,6 @@
+# -*- coding:UTF-8 -*-
+#!/usr/bin/pyhton3
+
 import requests
 import json
 import time
@@ -5,7 +8,7 @@ import pymysql
 
 dbstr = ''
 try:
-    f = open('d:\\db.txt', 'r')
+    f = open('/www/db.txt', 'r')
     dbstr = f.read()
 finally:
     if f:
@@ -23,6 +26,21 @@ table = dbdict['table']
 port= dbdict['port']
 
 
+
+def write_file(str):
+    """ 文件写入"""
+    file_name = "/www/805.txt"
+    # 以写入的方式打开
+    f = open(file_name,'w')
+    # 写入内容
+    f.write(str)
+    # 换行符
+    f.write('\n')
+    # 写入内容
+    f.write('world')
+
+    # 关闭文件
+    f.close()
 
 
 def add(dic):
@@ -122,7 +140,8 @@ for item in reqData:
         add(addData)
     else:
         #updatesql = "UPDATE bsj SET id='"+(str(addData['id']))+"', ranking='"+(str(addData['ranking']))+"', price='"+(str(addData['price']))+"',updown="+"'"+"+(str(addData['updown']))+"',dayex='"+str(addData['dayex'])+"' WHERE name='"+str(addData["name"])+"'"
-        updatesql = "UPDATE bsj SET  price='"+(str(addData['price']))+"',updown='"+(str(addData['updown']))+"',dayex='"+(str(addData['dayex']))+"',id='"+(str(addData['id']))+"',ranking='"+(str(addData['ranking']))+"' WHERE name='"+(addData['name'])+"'"
+        updatesql = "UPDATE bsj SET  price='"+(str(addData['price']))+"',updown='"+(str(addData['updown']))+"',dayex='"+(str(addData['dayex']))+"',id='"+(str(addData['id']))+"',ranking='"+(str(addData['ranking']))+"',updatetime='"+(str(addData['updatetime']))+"' WHERE name='"+(addData['name'])+"'"
+        write_file(updatesql)
         update(updatesql)
 
 
