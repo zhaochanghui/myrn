@@ -311,3 +311,29 @@ export default class ListAvatarExample extends Component {
 }
 
 
+
+//2019-8-06
+import React,{Component} from 'react';
+import {View,Text,Button,StyleSheet,Image}  from 'react-native';
+import {createStackNavigator,createTabNavigator,createDrawerNavigator}  from 'react-navigation';
+
+class BiDetail extends Component{
+    constructor(props){
+        super(props);
+    }
+
+    static navigationOptions=({navigation})=>({
+        title:`${navigation.state.params.title}`+"("+`${navigation.state.params.cnname}`+")",
+    });
+
+    render(){
+        return(
+            <View style={{flex:1,flexDirection: 'row',justifyContent: 'center',alignItems:'center',backgrounColor:'#F5FCFF'}}>
+                <Text>detail:{this.props.navigation.state.params.title}--全球指数</Text>
+            </View>
+        );
+    }
+}
+
+
+export default BiDetail;

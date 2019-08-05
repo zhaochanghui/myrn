@@ -152,7 +152,7 @@ export default class AnatomyExample extends Component {
 
              elements.push(
                <ListItem style={{marginLeft:windowWidth * 0.04,paddingTop:0,paddingBottom:1}}>
-                  <TouchableOpacity  onPress={() => this.props.navigate('biDetail',{index:item.rank,title:item.name})} >
+                  <TouchableOpacity  onPress={() => this.props.navigate('biDetail',{index:item.rank,title:item.name,cnname:item.full_name})} >
                    <Grid>
                        <Col style={{width: windowWidth * 0.11, height: 60}}>
                            <Rank param={item.rank} />

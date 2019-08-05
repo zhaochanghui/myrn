@@ -1,24 +1,25 @@
-import React,{Component} from 'react';
-import {View,Text,Button,StyleSheet,Image}  from 'react-native';
-import {createStackNavigator,createTabNavigator,createDrawerNavigator}  from 'react-navigation';
-
-class BiDetail extends Component{
+import React, { Component } from 'react';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+export default class AnatomyExample extends Component {
     constructor(props){
         super(props);
     }
 
     static navigationOptions=({navigation})=>({
-        title:`${navigation.state.params.title}`,
+        title:`${navigation.state.params.title}`+"("+`${navigation.state.params.cnname}`+")",
     });
 
-    render(){
-        return(
-            <View style={{flex:1,flexDirection: 'row',justifyContent: 'center',alignItems:'center',backgrounColor:'#F5FCFF'}}>
-                <Text>detail:{this.props.navigation.state.params.title}--全球指数</Text>
-            </View>
+
+    render() {
+        return (
+            <Container>
+                <Content>
+                    <Text>
+                        This is Content Section
+                    </Text>
+                </Content>
+
+            </Container>
         );
     }
 }
-
-
-export default BiDetail;

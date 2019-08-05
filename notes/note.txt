@@ -482,3 +482,10 @@ render(
       </Content>
 ...
 )
+
+
+2019-08-06   折线图
+https://www.npmjs.com/package/react-native-charts-wrapper-k
+npm install --save react-native-charts-wrapper
+
+
