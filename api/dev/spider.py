@@ -1,5 +1,5 @@
 # -*- coding:UTF-8 -*-
-#!/usr/bin/pyhton3
+#!/usr/local/python35/bin/python3
 
 import requests
 import json
@@ -8,7 +8,7 @@ import pymysql
 
 dbstr = ''
 try:
-    f = open('/www/db.txt', 'r')
+    f = open('/www/api/dev/db.txt', 'r')
     dbstr = f.read()
 finally:
     if f:
