@@ -31,7 +31,14 @@ allul = soup.select(".live > ul")
 for item in allul:
 	print(item)
 	print(item.get("id"))   # id  时间戳
+	print("------------------------------")
+	itemtime = item.select("span")  #时间
+	itemtitle = item.select("h2")  #标题
+	itemcontent = item.select(".lh32 > div") #内容
+	print(itemcontent)
 	break
+
+
 
 #时间
 times = soup.select(".live > ul > span")
