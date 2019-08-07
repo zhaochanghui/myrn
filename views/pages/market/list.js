@@ -54,14 +54,14 @@ class UpDown extends Component{
     if(param==1){
     return(
       <Button bordered success style={{width: windowWidth * 0.24,height:40,marginTop: 10,fontSize:12}}>
-          <Text>+{paramval}</Text>
+          <Text>+{paramval}%</Text>
               </Button>
     );
 
   }else{
     return(
       <Button bordered danger style={{width: windowWidth * 0.24,height:40,marginTop: 10,fontSize:12}}>
-          <Text>{paramval}</Text>
+          <Text>{paramval}%</Text>
               </Button>
     );
   }

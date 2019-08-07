@@ -485,7 +485,6 @@ render(
 
 
 2019-08-06   折线图
-https://www.npmjs.com/package/react-native-charts-wrapper-k
-npm install --save react-native-charts-wrapper
+https://www.jianshu.com/p/6460ae6f9780
 
 

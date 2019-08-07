@@ -337,3 +337,6 @@ class BiDetail extends Component{
 
 
 export default BiDetail;
+
+
+

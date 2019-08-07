@@ -14,6 +14,9 @@ import MusicDetail from './pages/music/music_detail';
 import MarketList from './pages/market/list';
 import BiDetail from './pages/market/detail';
 
+import NewsList from './pages/news/list';
+
+
 class One extends Component{
     static navigationOptions={
         title:'行情',
@@ -43,7 +46,7 @@ class Book extends Component{
     };
     render() {
         return (
-            <BookList navigate={this.props.navigation.navigate} />
+            <NewsList navigate={this.props.navigation.navigate} />
         );
     };
 }
