@@ -61,3 +61,5 @@ android
 ios
 package.json-bak
 __tests__
+api/dev/db.txt
+api/pro/db.txt
