@@ -45,7 +45,7 @@ def add(dic):
 
 
 	values = "'"+str(dic['addtime'])+"','"+str(dic['title'])+"','"+str(dic['content'])+"','"+str(dic['seemore'])+"','"+str(dic['bearish'])+"','"+str(dic['createtime'])+"','"+str(dic['updatetime'])+"'"+"";
-	sql = "insert into "+table+"(addtime,title,content,seemore,bearish,createtime,updatetime) values ("+values+")"
+	sql = "insert into news (addtime,title,content,seemore,bearish,createtime,updatetime) values ("+values+")"
 	print(sql)
 	result =cursor.execute(sql)
 	db.commit()
@@ -54,12 +54,12 @@ def add(dic):
 	db.close()
 
 
-def findByName(name):
+def findByTitle(name,addtime):
 	db =  pymysql.connect(host=host,port=port,user=user,passwd=pwd,db=dbname,use_unicode=True,charset='utf8')
 
 	cursor = db.cursor()
 
-	sql = "select count(*) as total from "+table+" where name='"+str(name)+"'"
+	sql = "select count(*) as total from news  where title='"+str(name)+"' and addtime='"+str(addtime)+"'"
 	print(sql)
 	cursor.execute(sql)
 	data = cursor.fetchall()
@@ -142,8 +142,14 @@ for item in allul:
 	now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	adddata['createtime'] = now
 	adddata['updatetime'] = now
+	has = findByTitle(adddata['title'],adddata['addtime'])
 
-	add(adddata)
+	if has == 0:
+		add(adddata)
+	#else:
+	#	updatesql = "UPDATE bsj SET  price='"+addData['price']+"',updown='"+addData['updown']+"',dayex='"+addData['dayex']+"' WHERE name='"+(addData['name'])+"'"
+	#	update(updatesql)
+
 
 
 

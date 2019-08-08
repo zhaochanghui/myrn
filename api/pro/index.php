@@ -59,7 +59,7 @@ if(!empty($_GET['index'])) {
 
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
 }else if(!empty($_GET['news'])){
-    $query = $pdo->query("select * from news");
+    $query = $pdo->query("select * from news order by addtime desc");
 
     $data = $query->fetchAll(PDO::FETCH_ASSOC);
 
