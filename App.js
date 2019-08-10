@@ -25,12 +25,12 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Main from './views/main';
+const App = () => {
+  return (<Main/>);
+}
 
-const App =() => {
-    return(<Main />);
-};
 
-const App1 = () => {
+const App111 = () => {
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />

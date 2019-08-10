@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
-export default class CardHeaderFooterExample extends Component {
+import { Container, Header, Content, Tab, Tabs } from 'native-base';
+import {Dimensions, FlatList, StyleSheet, View,RefreshControl,TouchableOpacity,Text} from "react-native";
+
+import Kunxun from './kunxun'
+
+export default class TabsExample extends Component {
     render() {
         return (
             <Container>
-                <Header />
-                <Content>
-                    <Card>
-                        <CardItem header>
-                            <Text>NativeBase</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Body>
-                            <Text>
-                                //Your text here
-                            </Text>
-                            </Body>
-                        </CardItem>
-                        <CardItem footer>
-                            <Text>GeekyAnts</Text>
-                        </CardItem>
-                    </Card>
-                </Content>
+                <Tabs>
+                    <Tab heading="快讯">
+                       <Kunxun/>
+                    </Tab>
+                    <Tab heading="深度">
+                        <View><Text>2222221</Text></View>
+                    </Tab>
+                    {/*<Tab heading="Tab3">*/}
+                        {/*<View><Text>333333</Text></View>*/}
+                    {/*</Tab>*/}
+                </Tabs>
             </Container>
         );
     }

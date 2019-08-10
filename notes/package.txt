@@ -592,3 +592,54 @@ class First extends Component{
 
 
 export default First;
+
+
+
+
+
+
+
+React-Native:BUG:libpng error: Not a PNG file错误
+https://blog.csdn.net/Pruett/article/details/83243605
+
+今天在放入png图片的时候，编译报错，截图如下
+在这里插入图片描述
+从这里可以看出是resource文件引起的error，提示这不是一张png图片，但图片的后缀名确实是png,这是怎么回事呢？、
+看到网络中有一种解释：图片后缀名不是png，但被改成了png，导致gradle检查报错，我的图片是网络中找的，有这种可能性，（我不会检查有没有改过，暂且认为是改了后缀名）。
+
+解决方法：
+
+在module对应的build.gradle的 defaultConfig节点下添加代码
+
+aaptOptions.cruncherEnabled = false
+aaptOptions.useNewCruncher = false
+1
+2
+添加后是：
+
+defaultConfig {
+    applicationId "com.cqc.demo"
+    minSdkVersion 12
+    targetSdkVersion 24
+    versionCode 1
+    versionName "1.0"
+    //禁止Gradle检查图片的合法性
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+}
+
+有的时候即使加了上面2行代码也报错，一般是.9图片引起的，把后缀名.9改成.png，在加上这2行代码就可以了。
+参考:https://blog.csdn.net/ss1168805219/article/details/52628944
+
+
+
+RN安卓app名称和图标修改：
+(1)修改图标和名称：
+找到 根目录/android/app/src/main/res
+
+https://www.jianshu.com/p/b7d2d93a6255
+
+D:\workspace\myrn\android\app\src\main\res\values\strings.xml   改APP名字
+
+D:\workspace\myrn\android\app\src\main\res 下的很多个文件夹 ic_launcher.png    ic_launcher_round.png   有这2张图片，
+把自己想替换的图片放到这几个文件夹里覆盖掉这2个图片文件，注意，最好大小修改为被覆盖的文件的大小

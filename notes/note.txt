@@ -42,7 +42,6 @@ react-native link
 
 
 
-
 react-navigation 3.x版本的使用    https://www.cnblogs.com/nangezi/p/10625611.html
 
 2.0以前版本：
